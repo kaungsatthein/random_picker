@@ -1,12 +1,11 @@
 import {
-  Box,
   Card,
   CardContent,
-  TextField,
-  Typography,
-  Button,
-  Avatar,
 } from "@mui/material";
+
+import CardTitle from "./CardTitle";
+import RandomForm from "./RandomForm";
+import Random from "./Random";
 
 import { useRef, useState } from "react";
 
@@ -23,64 +22,17 @@ const Picker = () => {
       setError("Please enter something.");
       return false;
     }
-    setRandom([...random, randomValue]);
+    const randomValues = randomValue.split(",").map(item => item.trim());
+    setRandom([...random, ...randomValues ]);
     randomRef.current.value = "";
   };
-
-  console.log("random", random);
 
   return (
     <Card sx={{ width: 600 }}>
       <CardContent>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            mb: 2,
-          }}
-        >
-          <Typography variant="h5" color="inherit">
-            What is your random thing?
-          </Typography>
-          {random.length > 0 && (
-            <Avatar sx={{ width: 24, height: 24, bgcolor: "#3162ff" }}>
-              <Typography sx={{ fontSize: "14px" }} color="inherit">
-                {random.length}
-              </Typography>
-            </Avatar>
-          )}
-        </Box>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <TextField
-            inputRef={randomRef}
-            id="outlined-basic"
-            label="Random"
-            variant="outlined"
-            fullWidth
-            sx={{
-              mr: 2,
-            }}
-          />
-
-          <Button
-            variant="contained"
-            sx={{ height: 40, bgcolor: "#3162ff" }}
-            onClick={handleSubmit}
-          >
-            Submit
-          </Button>
-        </Box>
-        {error && (
-          <Typography color="error" variant="body2" sx={{ mt: 2 }}>
-            {error}
-          </Typography>
-        )}
-        {random && (
-          <Typography variant="body2" sx={{ mt: 2 }}>
-            Randoms: {random.join(", ")}
-          </Typography>
-        )}
+        <CardTitle random={random} />
+        <RandomForm handleSubmit={handleSubmit} error={error} randomRef={randomRef}/>
+        <Random random={random}/>
       </CardContent>
     </Card>
   );
