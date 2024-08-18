@@ -1,4 +1,4 @@
-import { Box, AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 
 const NavBar = () => {
   return (
@@ -9,7 +9,6 @@ const NavBar = () => {
         height: 80,
         display: "flex",
         justifyContent: "center",
-        // marginTop: -10,
       }}
     >
       <Toolbar sx={{ justifyContent: "center" }}>
